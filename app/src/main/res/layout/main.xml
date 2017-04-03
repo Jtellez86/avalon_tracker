@@ -4,6 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center"
+    android:background="@color/cornflower_blue"
+
     >
 
     <TextView
@@ -12,18 +14,18 @@
         android:text="How many players are there?" />
 
     <EditText
+        android:id="@+id/playerCountField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/playerCount"
+        android:inputType="textPersonName|number"
+        android:maxLength="2"
         android:gravity="center"
         android:hint="# of players" />
 
     <Button
+        android:id="@+id/next_button"
         android:text="Next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/next_button" />
+        android:onClick="goToCharacterSelection"/>
 </LinearLayout>
-

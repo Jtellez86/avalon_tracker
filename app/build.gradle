@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
+
+ext{
+    numberOfProjectCommits = ['sh', '-c', 'git rev-list HEAD --count'].execute().text.trim() as Integer
+}
+
+def APP_VERSION = "1.0.0"
+ext.set('AppVersion', APP_VERSION)
+
+android {
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+        }
+    }
+    compileSdkVersion 'android-24'
+    buildToolsVersion "25.0.2"
+    useLibrary 'org.apache.http.legacy'
+
+    defaultConfig {
+        applicationId 'org.avalon.tracker'
+
+        // Defines the minimum API level required to run the app.
+        minSdkVersion 19
+
+        // Specifies the API level used to test the app.
+        targetSdkVersion 23
+
+        versionCode numberOfProjectCommits
+        versionName '1.0-beta'
+        multiDexEnabled true
+    }
+
+    /**
+     * The buildTypes block is where you can configure multiple build types.
+     * By default, the build system defines two build types: debug and release. The
+     * debug build type is not explicitly shown in the default build configuration,
+     * but it includes debugging tools and is signed with the debug key. The release
+     * build type applies Proguard settings and is not signed by default.
+     */
+
+    buildTypes {
+
+        /**
+         * By default, Android Studio configures the release build type to enable code
+         * shrinking, using minifyEnabled, and specifies the Proguard settings file.
+         */
+
+        release {
+            minifyEnabled true // Enables code shrinking for the release build type.
+        }
+    }
+}
+
+repositories {
+    mavenLocal()
+}
+
+dependencies {
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:1.7.0'
+    testCompile 'org.robolectric:robolectric:3.0'
+    testCompile 'org.robolectric:robolectric-annotations:3.0'
+    testCompile "org.robolectric:shadows-support-v4:3.0"
+    testCompile 'org.mockito:mockito-core:2.0.43-beta'
+}
