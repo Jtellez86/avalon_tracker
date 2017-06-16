@@ -7,8 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.avalon.tracker.characterSelection.CharacterSelectionActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class PlayerCountActivity extends Activity
 {
@@ -25,9 +28,10 @@ public class PlayerCountActivity extends Activity
         ButterKnife.bind(this);
     }
 
+    @OnClick(R.id.next_button)
     public void goToCharacterSelection(View view) {
-        Intent characterSelection = new Intent(this, CharacterSelectionActivity.class);
-        characterSelection.putExtra("playerCount", playerCountField.getText().toString());
+        Intent characterSelection = new Intent(PlayerCountActivity.this, CharacterSelectionActivity.class);
+        characterSelection.putExtra("playerCount", Integer.valueOf(playerCountField.getText().toString()));
         PlayerCountActivity.this.startActivity(characterSelection);
     }
 }
